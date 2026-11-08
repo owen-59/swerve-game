@@ -1,0 +1,29 @@
+[package]
+name = "swerve-drive-rust-lib"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+nalgebra = "0.35.0"
+# godot = "0.5.5"
+# nalgebra = "0.35.0"
+
+[dependencies.godot]
+git = "https://github.com/godot-rust/gdext"
+branch = "master"
+features = ["api-custom", "experimental-wasm", "lazy-function-tables"]
+
+# [target.wasm32-unknown-emscripten]
+# rustflags = [
+#     "-C", "link-args=-pthread", # /!\ Read 'Thread support' below regarding this flag
+#     "-C", "target-feature=+atomics", # /!\ Read 'Thread support' below regarding this flag
+#     "-C", "link-args=-sSIDE_MODULE=2",
+#     "-C", "llvm-args=-enable-emscripten-cxx-exceptions=0",
+#     "-Z", "default-visibility=hidden",
+#     "-Z", "link-native-libraries=no",
+#     "-Z", "emscripten-wasm-eh=false",
+# ]
+

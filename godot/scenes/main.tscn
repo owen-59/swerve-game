@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://tcfc31iwxawv"]
+
+[ext_resource type="PackedScene" uid="uid://ci4f34lqx605r" path="res://scenes/swerve_drive.tscn" id="1_o5qli"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_o5qli")
+
+[sub_resource type="Environment" id="Environment_sugp2"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5qli"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bm516"]
+material = SubResource("StandardMaterial3D_o5qli")
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dhpk"]
+size = Vector3(10, 0.5, 10)
+
+[node name="Main" type="Node3D" unique_id=536786864]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=74253036]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1885668737]
+environment = SubResource("Environment_sugp2")
+
+[node name="SwerveDrive" parent="." unique_id=704590491 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.471468, 0)
+mass = 0.5
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1425610318]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1439787664]
+mesh = SubResource("BoxMesh_bm516")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1509443118]
+shape = SubResource("BoxShape3D_8dhpk")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=875471505]
+transform = Transform3D(0.016086452, 0.54762733, -0.83656776, 0.0039149784, 0.8366352, 0.54774666, 0.99986297, -0.012086444, 0.011314543, -9.040134, 3.877283, 0.91804504)

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ci4f34lqx605r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bm516"]
+size = Vector3(1, 0.7, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dvs0r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_84ubw"]
+albedo_texture = SubResource("NoiseTexture2D_dvs0r")
+
+[sub_resource type="BoxMesh" id="BoxMesh_8dhpk"]
+material = SubResource("StandardMaterial3D_84ubw")
+size = Vector3(1, 0.7, 1)
+
+[node name="SwerveDrive" type="SwerveDrive" unique_id=1578598671]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1221959175]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14379883, 0)
+shape = SubResource("BoxShape3D_bm516")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1781172897]
+mesh = SubResource("BoxMesh_8dhpk")
