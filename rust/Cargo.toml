@@ -7,7 +7,6 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-nalgebra = "0.35.0"
 # godot = "0.5.5"
 # nalgebra = "0.35.0"
 

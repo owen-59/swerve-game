@@ -1,7 +1,6 @@
 use godot::prelude::*;
 
 mod swerve_drive;
-mod optimise;
 
 struct GodotRustExtension;
 
