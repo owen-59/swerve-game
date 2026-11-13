@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cky5ub8ls2xcl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bm516"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uiyn6"]
+size = Vector3(2, 0.5, 2)
+
+[node name="Tile" type="Tile" unique_id=1425829378]
+
+[node name="MeshInstance3D" type="RandomColourMaterial" parent="." unique_id=267304518]
+mesh = SubResource("BoxMesh_bm516")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=356585680]
+shape = SubResource("BoxShape3D_uiyn6")
