@@ -6,6 +6,7 @@ use crate::tile::Tile;
 
 const TILE_SCENE_PATH: &str = "res://scenes/tile.tscn";
 const TILE_OFFSET: f32 = 2.0;
+const COLOUR_CHANGE_MS: u64 = 5000;
 
 #[derive(GodotClass)]
 #[class(tool, base=Node3D)]
@@ -49,7 +50,7 @@ impl INode3D for Arena {
         let time = Time::singleton();
         let current_time = time.get_ticks_msec();
 
-        if current_time > self.ms_at_last_reset + 1000 {
+        if current_time > self.ms_at_last_reset + COLOUR_CHANGE_MS {
             self.ms_at_last_reset = current_time;
             for mut tile in self.tiles.iter_shared() {
                 tile.bind_mut().set_colour(get_random_colour());
