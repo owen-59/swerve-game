@@ -1,19 +1,30 @@
-use godot::prelude::*;
-use godot::classes::{IRigidBody3D, RigidBody3D};
+use godot::{classes::{IStaticBody3D, StaticBody3D}, prelude::*};
+
+use crate::random_colour_material::{RandomColourMaterial, get_random_colour};
 
 #[derive(GodotClass)]
-#[class(base=RigidBody3D)]
-struct Tile {
-    base: Base<RigidBody3D>,
+#[class(base=StaticBody3D, init)]
+pub struct Tile {
+    base: Base<StaticBody3D>,
+
+    #[init(node = "MeshInstance3D")]
+    mesh: OnReady<Gd<RandomColourMaterial>>,
+
+    #[init(val = Color { r: 0.0, g: 0.0, b: 0.0, a: 0.0 })]
+    colour: Color
 }
 
 #[godot_api]
-impl IRigidBody3D for Tile {
-    fn init(base: Base<RigidBody3D>) -> Self {
-        Self {
-            base,
-        }
+pub impl IStaticBody3D for Tile {
+    fn ready(&mut self) {
+        self.set_colour(get_random_colour());
     }
+}
 
-    fn ready(&mut self) {}
+#[godot_api]
+pub impl Tile {
+    pub fn set_colour(&mut self, colour: Color) {
+        self.colour = colour;
+        self.mesh.bind_mut().set_colour(colour);
+    }
 }

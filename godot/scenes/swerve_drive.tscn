@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci4f34lqx605r"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hqcak"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wu0rt"]
 friction = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bm516"]
@@ -16,10 +16,14 @@ material = SubResource("StandardMaterial3D_84ubw")
 size = Vector3(1, 0.7, 1)
 
 [node name="SwerveDrive" type="SwerveDrive" unique_id=1578598671]
-physics_material_override = SubResource("PhysicsMaterial_hqcak")
+physics_material_override = SubResource("PhysicsMaterial_wu0rt")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.4, 0)
+sleeping = true
+can_sleep = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1221959175]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14379883, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0010108352, 0)
 shape = SubResource("BoxShape3D_bm516")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1781172897]
