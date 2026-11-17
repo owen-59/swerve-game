@@ -1,10 +1,13 @@
 use godot::prelude::*;
 
-mod swerve_drive;
+mod arena;
 mod camera_pivot;
+mod main_scene;
+mod random_colour_material;
+mod swerve_drive;
+mod tile;
 
 struct GodotRustExtension;
 
 #[gdextension]
 unsafe impl ExtensionLibrary for GodotRustExtension {}
-
