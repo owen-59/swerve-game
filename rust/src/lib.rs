@@ -6,6 +6,7 @@ mod main_scene;
 mod random_colour_material;
 mod swerve_drive;
 mod tile;
+mod hud;
 
 struct GodotRustExtension;
 

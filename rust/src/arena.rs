@@ -18,6 +18,7 @@ pub struct Arena {
     ms_at_last_reset: u64,
     is_safe: bool,
     pub current_colour: Color,
+    level: u32
 }
 
 #[godot_api]
@@ -34,6 +35,7 @@ impl INode3D for Arena {
                 b: 1.0,
                 a: 1.0,
             },
+            level: 1
         }
     }
 
@@ -82,6 +84,8 @@ impl INode3D for Arena {
                 let mut tile_bind = random_tile.bind_mut();
                 tile_bind.set_colour(self.current_colour);
             }
+            let new_level = self.level + 1;
+            self.set_level(new_level);
         }
 
         if current_time > self.ms_at_last_reset + SAFE_MS && self.is_safe {
@@ -98,11 +102,22 @@ pub impl Arena {
     #[signal]
     pub fn colour_changed(colour: Color);
 
+    #[signal]
+    pub fn level_changed(level: u32);
+
     #[func]
     pub fn set_colour(&mut self, colour: Color) {
         self.current_colour = colour;
         self.run_deferred(move |this| {
             this.signals().colour_changed().emit(colour);
+        });
+    }
+
+    #[func]
+    pub fn set_level(&mut self, level: u32) {
+        self.level = level;
+        self.run_deferred(move |this| {
+            this.signals().level_changed().emit(level);
         });
     }
 }

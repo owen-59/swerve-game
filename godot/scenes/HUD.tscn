@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://rg5ua3luy6kp"]
+
+[ext_resource type="FontFile" uid="uid://dsbgwftihghpl" path="res://fonts/Monoton-Regular.ttf" id="1_qpvh6"]
+
+[node name="HUD" type="Hud" unique_id=373242551]
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=289352715]
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 104.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1_qpvh6")
+theme_override_font_sizes/font_size = 64
