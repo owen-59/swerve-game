@@ -1,5 +1,5 @@
+use godot::classes::{IRigidBody3D, Input, RigidBody3D};
 use godot::prelude::*;
-use godot::classes::{RigidBody3D, IRigidBody3D, Input};
 
 use crate::random_colour_material::{RandomColourMaterial, get_random_colour};
 
@@ -14,11 +14,15 @@ pub struct SwerveDrive {
     mesh: OnReady<Gd<RandomColourMaterial>>,
 }
 
-
 #[godot_api]
 impl IRigidBody3D for SwerveDrive {
     fn ready(&mut self) {
-        self.set_colour(Color { r: 1.0, g: 1.0, b: 1.0, a: 1.0 });
+        self.set_colour(Color {
+            r: 1.0,
+            g: 1.0,
+            b: 1.0,
+            a: 1.0,
+        });
     }
 
     fn physics_process(&mut self, _delta: f64) {
@@ -28,9 +32,13 @@ impl IRigidBody3D for SwerveDrive {
         let target_vx = input.get_axis("backward", "forward");
         let target_vy = input.get_axis("left", "right");
         let target_omega = -input.get_axis("rotate_left", "rotate_right");
-        
+
         base.apply_torque(Vector3::new(0.0, target_omega, 0.0));
-        base.apply_central_force(Vector3::new(target_vx * SPEED_MULTIPLIER, 0.0, target_vy * SPEED_MULTIPLIER));
+        base.apply_central_force(Vector3::new(
+            target_vx * SPEED_MULTIPLIER,
+            0.0,
+            target_vy * SPEED_MULTIPLIER,
+        ));
     }
 }
 

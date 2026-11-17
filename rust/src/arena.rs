@@ -1,5 +1,5 @@
-use godot::prelude::*;
 use godot::classes::{INode3D, Node3D, Time};
+use godot::prelude::*;
 
 use crate::random_colour_material::get_random_colour;
 use crate::tile::Tile;
@@ -16,7 +16,7 @@ pub struct Arena {
     tiles: Array<Gd<Tile>>,
     ms_at_last_reset: u64,
     is_safe: bool,
-    pub current_colour: Color
+    pub current_colour: Color,
 }
 
 #[godot_api]
@@ -27,10 +27,15 @@ impl INode3D for Arena {
             tiles: Array::new(),
             ms_at_last_reset: Time::singleton().get_ticks_msec(),
             is_safe: true,
-            current_colour: Color { r: 1.0, g: 1.0, b: 1.0, a: 1.0 }    
+            current_colour: Color {
+                r: 1.0,
+                g: 1.0,
+                b: 1.0,
+                a: 1.0,
+            },
         }
     }
-    
+
     fn ready(&mut self) {
         let tile_scene: Gd<PackedScene> = load(TILE_SCENE_PATH);
         let owner = self.to_gd().upcast::<Node3D>();
@@ -40,7 +45,11 @@ impl INode3D for Arena {
                 let mut tile: Gd<Tile> = tile_scene.instantiate().unwrap().cast::<Tile>();
                 let mut base = self.base_mut();
 
-                tile.set_position(Vector3 { x: i as f32 * TILE_OFFSET, y: 0.0, z: j as f32 * TILE_OFFSET });
+                tile.set_position(Vector3 {
+                    x: i as f32 * TILE_OFFSET,
+                    y: 0.0,
+                    z: j as f32 * TILE_OFFSET,
+                });
                 base.add_child(&tile);
                 tile.set_owner(&owner);
 

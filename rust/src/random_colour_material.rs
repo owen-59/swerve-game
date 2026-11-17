@@ -1,12 +1,11 @@
-use godot::prelude::*;
 use godot::classes::{IMeshInstance3D, MeshInstance3D, StandardMaterial3D};
+use godot::prelude::*;
 use rand::random_range;
 
 #[derive(GodotClass)]
 #[class(base=MeshInstance3D)]
 pub struct RandomColourMaterial {
     base: Base<MeshInstance3D>,
-
     // #[init(node = "MeshInstance3D")]
     // mesh: OnReady<Gd<>>
 }
@@ -14,9 +13,7 @@ pub struct RandomColourMaterial {
 #[godot_api]
 impl IMeshInstance3D for RandomColourMaterial {
     fn init(base: Base<MeshInstance3D>) -> Self {
-        Self {
-            base,
-        }
+        Self { base }
     }
 }
 
@@ -35,11 +32,41 @@ impl RandomColourMaterial {
 pub fn get_random_colour() -> Color {
     let colour_id = random_range(1..=6);
     match colour_id {
-        1 => Color { r: 1.0, g: 0.0, b: 0.0, a: 1.0},
-        2 => Color { r: 0.0, g: 1.0, b: 0.0, a: 1.0},
-        3 => Color { r: 0.0, g: 0.0, b: 1.0, a: 1.0},
-        4 => Color { r: 0.0, g: 1.0, b: 1.0, a: 1.0},
-        5 => Color { r: 1.0, g: 0.0, b: 1.0, a: 1.0},
-        _ => Color { r: 1.0, g: 1.0, b: 0.0, a: 1.0},
+        1 => Color {
+            r: 1.0,
+            g: 0.0,
+            b: 0.0,
+            a: 1.0,
+        },
+        2 => Color {
+            r: 0.0,
+            g: 1.0,
+            b: 0.0,
+            a: 1.0,
+        },
+        3 => Color {
+            r: 0.0,
+            g: 0.0,
+            b: 1.0,
+            a: 1.0,
+        },
+        4 => Color {
+            r: 0.0,
+            g: 1.0,
+            b: 1.0,
+            a: 1.0,
+        },
+        5 => Color {
+            r: 1.0,
+            g: 0.0,
+            b: 1.0,
+            a: 1.0,
+        },
+        _ => Color {
+            r: 1.0,
+            g: 1.0,
+            b: 0.0,
+            a: 1.0,
+        },
     }
 }

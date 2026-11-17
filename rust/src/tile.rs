@@ -1,4 +1,7 @@
-use godot::{classes::{CollisionShape3D, IStaticBody3D, StaticBody3D}, prelude::*};
+use godot::{
+    classes::{CollisionShape3D, IStaticBody3D, StaticBody3D},
+    prelude::*,
+};
 
 use crate::random_colour_material::{RandomColourMaterial, get_random_colour};
 
@@ -14,7 +17,7 @@ pub struct Tile {
     collision: OnReady<Gd<CollisionShape3D>>,
 
     #[init(val = Color { r: 0.0, g: 0.0, b: 0.0, a: 0.0 })]
-    pub colour: Color
+    pub colour: Color,
 }
 
 #[godot_api]
