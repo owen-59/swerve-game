@@ -16,7 +16,7 @@ pub struct Arena {
     tiles: Array<Gd<Tile>>,
     ms_at_last_reset: u64,
     is_safe: bool,
-    current_colour: Color
+    pub current_colour: Color
 }
 
 #[godot_api]
@@ -27,7 +27,7 @@ impl INode3D for Arena {
             tiles: Array::new(),
             ms_at_last_reset: Time::singleton().get_ticks_msec(),
             is_safe: true,
-            current_colour: get_random_colour()
+            current_colour: Color { r: 1.0, g: 1.0, b: 1.0, a: 1.0 }    
         }
     }
     
@@ -35,8 +35,8 @@ impl INode3D for Arena {
         let tile_scene: Gd<PackedScene> = load(TILE_SCENE_PATH);
         let owner = self.to_gd().upcast::<Node3D>();
 
-        for i in -2..=2 {
-            for j in -2..=2 {
+        for i in -4..=4 {
+            for j in -4..=4 {
                 let mut tile: Gd<Tile> = tile_scene.instantiate().unwrap().cast::<Tile>();
                 let mut base = self.base_mut();
 
@@ -58,23 +58,20 @@ impl INode3D for Arena {
         if current_time > self.ms_at_last_reset + COLOUR_CHANGE_MS {
             let colour = get_random_colour();
             self.is_safe = true;
-            self.current_colour = colour;
+            self.set_colour(colour);
             self.ms_at_last_reset = current_time;
             self.signals().colour_changed().emit(colour);
             for mut tile in self.tiles.iter_shared() {
                 let mut tile_bind = tile.bind_mut();
                 tile_bind.set_colour(get_random_colour());
-                tile_bind.base_mut().show();
+                tile_bind.set_activeness(true);
             }
         }
 
         if current_time > self.ms_at_last_reset + SAFE_MS && self.is_safe {
             for mut tile in self.tiles.iter_shared() {
-                if tile.bind().colour != self.current_colour {
-                    tile.bind_mut().base_mut().hide();
-                } else {
-                    tile.bind_mut().base_mut().show();
-                }
+                let is_active = tile.bind().colour == self.current_colour;
+                tile.bind_mut().set_activeness(is_active);
             }
         }
     }
@@ -84,4 +81,12 @@ impl INode3D for Arena {
 pub impl Arena {
     #[signal]
     pub fn colour_changed(colour: Color);
+
+    #[func]
+    pub fn set_colour(&mut self, colour: Color) {
+        self.current_colour = colour;
+        self.run_deferred(move |this| {
+            this.signals().colour_changed().emit(colour);
+        });
+    }
 }

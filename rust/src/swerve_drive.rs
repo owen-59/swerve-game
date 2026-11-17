@@ -18,7 +18,7 @@ pub struct SwerveDrive {
 #[godot_api]
 impl IRigidBody3D for SwerveDrive {
     fn ready(&mut self) {
-        self.set_colour(get_random_colour());
+        self.set_colour(Color { r: 1.0, g: 1.0, b: 1.0, a: 1.0 });
     }
 
     fn physics_process(&mut self, _delta: f64) {

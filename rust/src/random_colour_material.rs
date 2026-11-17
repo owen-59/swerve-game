@@ -33,10 +33,13 @@ impl RandomColourMaterial {
 }
 
 pub fn get_random_colour() -> Color {
-    let colour_id = random_range(1..=3);
+    let colour_id = random_range(1..=6);
     match colour_id {
         1 => Color { r: 1.0, g: 0.0, b: 0.0, a: 1.0},
         2 => Color { r: 0.0, g: 1.0, b: 0.0, a: 1.0},
-        _ => Color { r: 0.0, g: 0.0, b: 1.0, a: 1.0},
+        3 => Color { r: 0.0, g: 0.0, b: 1.0, a: 1.0},
+        4 => Color { r: 0.0, g: 1.0, b: 1.0, a: 1.0},
+        5 => Color { r: 1.0, g: 0.0, b: 1.0, a: 1.0},
+        _ => Color { r: 1.0, g: 1.0, b: 0.0, a: 1.0},
     }
 }

@@ -1,6 +1,7 @@
 use godot::prelude::*;
 use godot::classes::{INode3D, Node3D};
 use crate::arena::Arena;
+use crate::random_colour_material::get_random_colour;
 use crate::swerve_drive::SwerveDrive;
 
 #[derive(GodotClass)]
@@ -17,6 +18,14 @@ struct MainScene {
 
 #[godot_api]
 impl INode3D for MainScene {
+    fn ready(&mut self) {
+        self.run_deferred(|this| {
+            let colour = get_random_colour();
+            this.arena.bind_mut().set_colour(colour);
+            this.player.bind_mut().set_colour(colour);
+        });
+    }
+
     fn process(&mut self, _delta: f64) {
         let arena = (*self.arena).clone();
         let player = (*self.player).clone();
