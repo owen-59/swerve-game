@@ -1,5 +1,6 @@
 use godot::classes::{INode3D, Node3D, Time};
 use godot::prelude::*;
+use rand::seq::IteratorRandom;
 
 use crate::random_colour_material::get_random_colour;
 use crate::tile::Tile;
@@ -74,6 +75,12 @@ impl INode3D for Arena {
                 let mut tile_bind = tile.bind_mut();
                 tile_bind.set_colour(get_random_colour());
                 tile_bind.set_activeness(true);
+            }
+
+            let mut rng = rand::rng();
+            if let Some(mut random_tile) = self.tiles.iter_shared().choose(&mut rng) {
+                let mut tile_bind = random_tile.bind_mut();
+                tile_bind.set_colour(self.current_colour);
             }
         }
 
