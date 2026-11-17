@@ -11,7 +11,7 @@ pub struct Tile {
     mesh: OnReady<Gd<RandomColourMaterial>>,
 
     #[init(val = Color { r: 0.0, g: 0.0, b: 0.0, a: 0.0 })]
-    colour: Color
+    pub colour: Color
 }
 
 #[godot_api]

@@ -7,13 +7,16 @@ use crate::tile::Tile;
 const TILE_SCENE_PATH: &str = "res://scenes/tile.tscn";
 const TILE_OFFSET: f32 = 2.0;
 const COLOUR_CHANGE_MS: u64 = 5000;
+const SAFE_MS: u64 = 3000;
 
 #[derive(GodotClass)]
-#[class(tool, base=Node3D)]
-struct Arena {
+#[class(base=Node3D)]
+pub struct Arena {
     base: Base<Node3D>,
     tiles: Array<Gd<Tile>>,
     ms_at_last_reset: u64,
+    is_safe: bool,
+    current_colour: Color
 }
 
 #[godot_api]
@@ -22,7 +25,9 @@ impl INode3D for Arena {
         Self {
             base,
             tiles: Array::new(),
-            ms_at_last_reset: Time::singleton().get_ticks_msec()
+            ms_at_last_reset: Time::singleton().get_ticks_msec(),
+            is_safe: true,
+            current_colour: get_random_colour()
         }
     }
     
@@ -51,10 +56,32 @@ impl INode3D for Arena {
         let current_time = time.get_ticks_msec();
 
         if current_time > self.ms_at_last_reset + COLOUR_CHANGE_MS {
+            let colour = get_random_colour();
+            self.is_safe = true;
+            self.current_colour = colour;
             self.ms_at_last_reset = current_time;
+            self.signals().colour_changed().emit(colour);
             for mut tile in self.tiles.iter_shared() {
-                tile.bind_mut().set_colour(get_random_colour());
+                let mut tile_bind = tile.bind_mut();
+                tile_bind.set_colour(get_random_colour());
+                tile_bind.base_mut().show();
+            }
+        }
+
+        if current_time > self.ms_at_last_reset + SAFE_MS && self.is_safe {
+            for mut tile in self.tiles.iter_shared() {
+                if tile.bind().colour != self.current_colour {
+                    tile.bind_mut().base_mut().hide();
+                } else {
+                    tile.bind_mut().base_mut().show();
+                }
             }
         }
     }
+}
+
+#[godot_api]
+pub impl Arena {
+    #[signal]
+    pub fn colour_changed(colour: Color);
 }

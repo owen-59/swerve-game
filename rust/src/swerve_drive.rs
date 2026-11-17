@@ -7,7 +7,7 @@ const SPEED_MULTIPLIER: f32 = 10.0;
 
 #[derive(GodotClass)]
 #[class(base=RigidBody3D, init)]
-struct SwerveDrive {
+pub struct SwerveDrive {
     base: Base<RigidBody3D>,
 
     #[init(node = "MeshInstance3D")]

@@ -5,6 +5,7 @@ mod camera_pivot;
 mod arena;
 mod tile;
 mod random_colour_material;
+mod main_scene;
 
 struct GodotRustExtension;
 
