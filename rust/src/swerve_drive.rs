@@ -1,7 +1,7 @@
 use godot::classes::{IRigidBody3D, Input, RigidBody3D};
 use godot::prelude::*;
 
-use crate::random_colour_material::{RandomColourMaterial, get_random_colour};
+use crate::random_colour_material::RandomColourMaterial;
 
 const SPEED_MULTIPLIER: f32 = 10.0;
 

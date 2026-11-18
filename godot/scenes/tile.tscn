@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://cky5ub8ls2xcl"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uiyn6"]
+friction = 0.5
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wu0rt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bm516"]
@@ -10,6 +13,7 @@ size = Vector3(2, 0.5, 2)
 size = Vector3(2, 0.5, 2)
 
 [node name="Tile" type="Tile" unique_id=1425829378]
+physics_material_override = SubResource("PhysicsMaterial_uiyn6")
 
 [node name="MeshInstance3D" type="RandomColourMaterial" parent="." unique_id=267304518]
 mesh = SubResource("BoxMesh_bm516")
