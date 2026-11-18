@@ -2,7 +2,7 @@ use crate::arena::Arena;
 use crate::hud::Hud;
 use crate::random_colour_material::get_random_colour;
 use crate::swerve_drive::SwerveDrive;
-use godot::classes::{INode3D, Node3D};
+use godot::classes::{AudioStreamPlayer, INode3D, Node3D};
 use godot::prelude::*;
 
 #[derive(GodotClass)]
@@ -17,7 +17,10 @@ struct MainScene {
     player: OnReady<Gd<SwerveDrive>>,
 
     #[init(node = "HUD")]
-    hud: OnReady<Gd<Hud>>
+    hud: OnReady<Gd<Hud>>,
+
+    #[init(node = "ClickPlayer")]
+    click_player: OnReady<Gd<AudioStreamPlayer>>
 }
 
 #[godot_api]
@@ -43,5 +46,16 @@ impl INode3D for MainScene {
             .signals()
             .level_changed()
             .connect_other(&hud, Hud::set_score);
+        arena
+            .signals()
+            .tiles_fell()
+            .connect_other(&self.to_gd(), MainScene::play_sound);
+    }
+}
+
+#[godot_api]
+impl MainScene {
+    pub fn play_sound(&mut self) {
+        self.click_player.play();
     }
 }

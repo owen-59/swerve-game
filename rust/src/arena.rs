@@ -89,6 +89,8 @@ impl INode3D for Arena {
         }
 
         if current_time > self.ms_at_last_reset + SAFE_MS && self.is_safe {
+            self.is_safe = false;
+            self.signals().tiles_fell().emit();
             for mut tile in self.tiles.iter_shared() {
                 let is_active = tile.bind().colour == self.current_colour;
                 tile.bind_mut().set_activeness(is_active);
@@ -104,6 +106,9 @@ pub impl Arena {
 
     #[signal]
     pub fn level_changed(level: u32);
+
+    #[signal]
+    pub fn tiles_fell();
 
     #[func]
     pub fn set_colour(&mut self, colour: Color) {
